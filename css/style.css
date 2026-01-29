@@ -342,7 +342,7 @@
     margin: 0;
     font-size: 56px;
     max-width: 1100px;
-    line-height: 1.05;
+    line-height: 1.4;
     letter-spacing: -0.02em;
     color: var(--offwhite);
     font-weight: 700;
@@ -804,7 +804,7 @@
 .pcard__title {
     font-size: 16px;
     font-weight: 700;
-    color: rgba(13, 27, 27, 0.92);
+    color: teal;
 }
 
 .pcard__tag {
@@ -1055,9 +1055,6 @@
 /* =========================================================
      RESPONSIVE (keep your breakpoints)
      ========================================================= */
-@media (max-width: 1440px) {}
-
-@media (max-width: 992px) {}
 
 /* =========================================================
      MEDIA QUERY 1: <= 1440px
@@ -1220,7 +1217,7 @@
     }
 
     .services {
-        padding-bottom: 25px;
+        padding-bottom: 55px;
     }
 
     .services__grid {
