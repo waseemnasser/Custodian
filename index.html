@@ -1,0 +1,364 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Basic meta -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Custodian Speciality</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+    <!--
+    NAVBAR (Luxury + Modern):
+    - Left: Brand (logo + name)
+    - Center: Links
+    - Right: CTA + Hamburger (mobile)
+    - Mobile menu becomes a slide-down panel at <= 992px
+  -->
+    <header class="site-header white_spacing ">
+        <nav class="nav" aria-label="Primary">
+            <!-- Brand -->
+            <a class="brand" href="#top" aria-label="Go to homepage">
+                <!--
+          You can replace this SVG with the PDF logo later.
+          For now, it's a simple monogram icon in a "premium" style.
+        -->
+                <span class="brand__mark" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" width="22" height="22" role="img">
+                        <path
+                            d="M10 34V14h6c7 0 12 3.6 12 10s-5 10-12 10h-6Zm6-4h1.8c4.6 0 7.7-2.1 7.7-6s-3.1-6-7.7-6H16v12Zm18-16h4v20h-4V14Z">
+                        </path>
+                    </svg>
+                </span>
+
+                <span class="brand__text">
+                    <span class="brand__name">CUSTODIAN</span>
+                    <span class="brand__tag">Building Contracting L.L.C.</span>
+                </span>
+            </a>
+
+            <!-- Desktop links -->
+            <ul class="nav__links" id="primary-nav">
+                <!-- Keep labels aligned with PDF sections -->
+                <li><a class="nav__link" href="#about">About</a></li>
+                <li><a class="nav__link" href="#why">Why Choose Us</a></li>
+                <li><a class="nav__link" href="#services">Services</a></li>
+                <li><a class="nav__link" href="#portfolio">Portfolio</a></li>
+                <li><a class="nav__link" href="#landscaping">Landscaping</a></li>
+                <li><a class="nav__link" href="#before-after">Before & After</a></li>
+                <li><a class="nav__link" href="#credentials">Credentials</a></li>
+                <li><a class="nav__link" href="#contact">Contact</a></li>
+            </ul>
+
+            <!-- Actions (CTA + hamburger for mobile) -->
+            <div class="nav__actions">
+                <!-- CTA button (lead-gen focus) -->
+                <a class="btn btn--cta" href="#contact">Consult</a>
+
+                <!--
+          Hamburger button:
+          - aria-controls points to the mobile panel id
+          - aria-expanded toggles true/false via JS
+        -->
+                <button class="hamburger" type="button" aria-label="Open menu" aria-controls="mobile-menu"
+                    aria-expanded="false">
+                    <span class="hamburger__bar" aria-hidden="true"></span>
+                    <span class="hamburger__bar" aria-hidden="true"></span>
+                    <span class="hamburger__bar" aria-hidden="true"></span>
+                </button>
+            </div>
+
+            <!-- Mobile panel (hidden on desktop, shown at <= 992px) -->
+            <div class="mobile-menu" id="mobile-menu">
+                <ul class="mobile-menu__links" aria-label="Mobile">
+                    <li><a class="mobile-menu__link" href="#about">About</a></li>
+                    <li><a class="mobile-menu__link" href="#why">Why Choose Us</a></li>
+                    <li><a class="mobile-menu__link" href="#services">Services</a></li>
+                    <li><a class="mobile-menu__link" href="#portfolio">Portfolio</a></li>
+                    <li><a class="mobile-menu__link" href="#landscaping">Landscaping</a></li>
+                    <li><a class="mobile-menu__link" href="#before-after">Before & After</a></li>
+                    <li><a class="mobile-menu__link" href="#credentials">Credentials</a></li>
+                    <li><a class="mobile-menu__link" href="#contact">Contact</a></li>
+                </ul>
+
+                <!-- Mobile CTA duplicated for convenience -->
+            </div>
+        </nav>
+    </header>
+
+    <!-- HERO (Luxury / High-impact) -->
+    <section class="hero white_spacing" id="top" aria-label="Hero">
+
+        <!-- Background slideshow layers (two layers for smooth crossfade) -->
+        <div class="hero__bg hero__bg--a" aria-hidden="true"></div>
+        <div class="hero__bg hero__bg--b" aria-hidden="true"></div>
+        <div class="hero__overlay" aria-hidden="true"></div>
+
+        <div class="hero__container hero__grid">
+            <div class="hero__content">
+                <p class="hero__kicker">UAE • Interior Finishing • Luxury Decoration • Construction</p>
+
+                <h1 class="hero__title">Crafting Luxury Spaces with Precision & Elegance</h1>
+
+                <p class="hero__subtitle">
+                    CUSTODIAN Building Contracting L.L.C. delivers premium fit-out, renovation, and
+                    construction—built to the highest standards.
+                </p>
+
+                <div class="hero__actions">
+                    <a class="btn btn--cta hero__cta" href="#contact">Consult</a>
+                    <a class="btn btn--ghost hero__cta" href="#portfolio">View Portfolio</a>
+                </div>
+
+                <div class="hero__trust" aria-label="Credentials">
+                    <span class="hero__trust-item">Trade License</span>
+                    <span class="hero__trust-item">Ejari</span>
+                    <span class="hero__trust-item">VAT Registered</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT US (from PDF) -->
+    <section id="about" class="about white_spacing" aria-label="About Us">
+        <div class="about__flex">
+
+            <!-- LEFT: text -->
+            <div class="about__content">
+                <h2 class="about__heading">About Us</h2>
+
+                <h3 class="about__title">
+                    Your trusted partner in construction and contracting excellence in the UAE.
+                </h3>
+
+                <p class="about__text">
+                    CUSTODIAN is a professional contracting company dedicated to quality and trust. Based in the UAE, we
+                    leverage our expertise to deliver modern construction solutions that meet the highest standards. Our
+                    team
+                    prioritizes customer satisfaction, ensuring every project reflects our commitment to excellence in
+                    the
+                    construction industry.
+                </p>
+            </div>
+
+            <!-- RIGHT: image -->
+            <div class="about__media">
+                <img src="./assets/imgs/about.jpg" alt="Luxury interior project by Custodian" />
+            </div>
+
+        </div>
+    </section>
+
+    <!-- WHY CHOOSE US -->
+    <section id="why" class="why white_spacing" aria-label="Why Choose Us">
+        <div class="why__head">
+            <h2 class="why__title">Why Choose Us</h2>
+            <p class="why__subtitle">
+                Built on craftsmanship, clarity, and commitment—so every project runs smoothly from start to finish.
+            </p>
+        </div>
+
+        <div class="why__grid">
+            <!-- Card 1 -->
+            <article class="why__card">
+                <div class="why__media" aria-hidden="true">
+                    <img src="./assets/imgs/why_experienced_team.png" alt="">
+                </div>
+                <h3 class="why__card-title">Experienced Team</h3>
+                <p class="why__card-text">
+                    Skilled specialists who deliver consistent quality across fit-out, renovation, and construction.
+                </p>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="why__card">
+                <div class="why__media" aria-hidden="true">
+                    <img src="./assets/imgs/why_quality_standards.png" alt="">
+                </div>
+
+                <h3 class="why__card-title">Quality Standards</h3>
+                <p class="why__card-text">
+                    Premium materials, precise finishing, and strict checks—aligned with high-end expectations.
+                </p>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="why__card">
+                <div class="why__media" aria-hidden="true">
+                    <img src="./assets/imgs/why_timely_delievery.png" alt="">
+                </div>
+                <h3 class="why__card-title">Timely Delivery</h3>
+                <p class="why__card-text">
+                    Clear schedules and dependable execution—so you get results on time without surprises.
+                </p>
+            </article>
+        </div>
+    </section>
+
+    <!-- OUR SERVICES -->
+    <section id="services" class="services white_spacing" aria-label="Our Services">
+        <div class="services__head">
+            <h2 class="services__title">Our Comprehensive Services</h2>
+            <p class="services__subtitle">
+                Tailored solutions for luxury interiors, construction, and ongoing property care—delivered with
+                precision.
+            </p>
+        </div>
+
+        <div class="services__grid">
+            <!-- Card 1 -->
+            <article class="services__card">
+
+                <!-- Image (NEW) -->
+                <div class="services__media">
+                    <img src="./assets/imgs/services_construction.png" alt="Construction service" />
+                </div>
+
+                <div class="services__top">
+                    <h3 class="services__card-title">Construction</h3>
+                    <span class="services__badge">Core</span>
+                </div>
+                <p class="services__text">
+                    End-to-end construction services with clear planning, reliable execution, and premium finishing.
+                </p>
+                <ul class="services__list">
+                    <li>Project planning & execution</li>
+                    <li>Structural works & supervision</li>
+                    <li>High-end finishes</li>
+                </ul>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="services__card">
+
+                <!-- Image (NEW) -->
+                <div class="services__media">
+                    <img src="./assets/imgs/services_renovation.png" alt="Renovation service" />
+                </div>
+
+                <div class="services__top">
+                    <h3 class="services__card-title">Renovation</h3>
+                    <span class="services__badge">Upgrade</span>
+                </div>
+                <p class="services__text">
+                    Transform existing spaces with modern design improvements and refined construction solutions.
+                </p>
+                <ul class="services__list">
+                    <li>Interior upgrades</li>
+                    <li>Layout adjustments</li>
+                    <li>Material & finish refresh</li>
+                </ul>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="services__card">
+
+                <!-- Image (NEW) -->
+                <div class="services__media">
+                    <img src="./assets/imgs/services_fit_out.png" alt="Luxury fit-out service" />
+                </div>
+
+                <div class="services__top">
+                    <h3 class="services__card-title">Fit-Out</h3>
+                    <span class="services__badge">Luxury</span>
+                </div>
+                <p class="services__text">
+                    Premium interior fit-out for residences and commercial spaces with attention to detail.
+                </p>
+                <ul class="services__list">
+                    <li>Custom interiors</li>
+                    <li>Joinery & detailing</li>
+                    <li>Turnkey handover</li>
+                </ul>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="services__card">
+
+                <!-- Image (NEW) -->
+                <div class="services__media">
+                    <img src="./assets/imgs/services_maintenance.png" alt="Maintenance service" />
+                </div>
+
+                <div class="services__top">
+                    <h3 class="services__card-title">Maintenance</h3>
+                    <span class="services__badge">Care</span>
+                </div>
+                <p class="services__text">
+                    Reliable maintenance packages to keep your property performing and looking its best year-round.
+                </p>
+                <ul class="services__list">
+                    <li>Preventive maintenance</li>
+                    <li>Repairs & touch-ups</li>
+                    <li>Scheduled inspections</li>
+                </ul>
+            </article>
+        </div>
+    </section>
+
+
+    <!-- Next sections placeholders (we’ll build them one by one) -->
+    <!-- PORTFOLIO (Projects Overview) -->
+    <section id="portfolio" class="portfolio white_spacing" aria-label="Portfolio">
+        <div class="portfolio__head">
+            <h2 class="portfolio__title">Portfolio</h2>
+            <p class="portfolio__subtitle">
+                Selected projects across luxury villas, renovations, fit-out, and exterior works. Explore one cover
+                image per project — full galleries live inside each project page.
+            </p>
+        </div>
+
+        <!-- Filter row (simple + premium) -->
+        <div class="portfolio__filters" role="tablist" aria-label="Portfolio Filters">
+            <!-- data-filter matches project.category in JS -->
+            <button class="portfolio__chip is-active" type="button" data-filter="all" role="tab" aria-selected="true">
+                All
+            </button>
+            <button class="portfolio__chip" type="button" data-filter="villa" role="tab" aria-selected="false">
+                Villas
+            </button>
+            <button class="portfolio__chip" type="button" data-filter="renovation" role="tab" aria-selected="false">
+                Renovation
+            </button>
+            <button class="portfolio__chip" type="button" data-filter="fitout" role="tab" aria-selected="false">
+                Fit-Out
+            </button>
+            <button class="portfolio__chip" type="button" data-filter="exterior" role="tab" aria-selected="false">
+                Exterior
+            </button>
+        </div>
+
+        <!-- Grid (JS will render cards here) -->
+        <div class="portfolio__grid" id="portfolio-grid" aria-live="polite"></div>
+
+        <!-- Sub CTA -->
+        <div class="portfolio__cta">
+            <p class="portfolio__cta-text">Want a similar finish for your space?</p>
+            <a class="btn btn--cta" href="#contact">Request a Consultation</a>
+        </div>
+    </section>
+
+    <section id="landscaping" class="demo__section">
+        <h2>Landscaping</h2>
+    </section>
+    <section id="before-after" class="demo__section">
+        <h2>Before & After</h2>
+    </section>
+    <section id="credentials" class="demo__section">
+        <h2>Credentials</h2>
+    </section>
+    <section id="contact" class="demo__section">
+        <h2>Contact</h2>
+    </section>
+
+    <!-- JS -->
+    <script src="./js/app.js" defer></script>
+</body>
+
+</html>
