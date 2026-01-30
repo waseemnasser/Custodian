@@ -14,22 +14,13 @@
 </head>
 
 <body>
-    <!--
-    NAVBAR (Luxury + Modern):
-    - Left: Brand (logo + name)
-    - Center: Links
-    - Right: CTA + Hamburger (mobile)
-    - Mobile menu becomes a slide-down panel at <= 992px
-  -->
-    <header class="site-header white_spacing ">
-        <nav class="nav" aria-label="Primary">
+    <!-- NAVBAR -->
+    <header class="wn-site-header wn-white-spacing">
+        <nav class="wn-nav" aria-label="Primary">
+
             <!-- Brand -->
-            <a class="brand" href="#top" aria-label="Go to homepage">
-                <!--
-          You can replace this SVG with the PDF logo later.
-          For now, it's a simple monogram icon in a "premium" style.
-        -->
-                <span class="brand__mark" aria-hidden="true">
+            <a class="wn-brand" href="#wn-top" aria-label="Go to homepage">
+                <span class="wn-brand__mark" aria-hidden="true">
                     <svg viewBox="0 0 48 48" width="22" height="22" role="img">
                         <path
                             d="M10 34V14h6c7 0 12 3.6 12 10s-5 10-12 10h-6Zm6-4h1.8c4.6 0 7.7-2.1 7.7-6s-3.1-6-7.7-6H16v12Zm18-16h4v20h-4V14Z">
@@ -37,107 +28,94 @@
                     </svg>
                 </span>
 
-                <span class="brand__text">
-                    <span class="brand__name">CUSTODIAN</span>
-                    <span class="brand__tag">Building Contracting L.L.C.</span>
+                <span class="wn-brand__text">
+                    <span class="wn-brand__name">CUSTODIAN</span>
+                    <span class="wn-brand__tag">Building Contracting L.L.C.</span>
                 </span>
             </a>
 
             <!-- Desktop links -->
-            <ul class="nav__links" id="primary-nav">
-                <!-- Keep labels aligned with PDF sections -->
-                <li><a class="nav__link" href="#about">About</a></li>
-                <li><a class="nav__link" href="#why">Why Choose Us</a></li>
-                <li><a class="nav__link" href="#services">Services</a></li>
-                <li><a class="nav__link" href="#portfolio">Portfolio</a></li>
-                <li><a class="nav__link" href="#landscaping">Landscaping</a></li>
-                <li><a class="nav__link" href="#before-after">Before & After</a></li>
-                <li><a class="nav__link" href="#credentials">Credentials</a></li>
-                <li><a class="nav__link" href="#contact">Contact</a></li>
+            <ul class="wn-nav__links" id="wn-primary-nav">
+                <li><a class="wn-nav__link" href="#wn-about">About</a></li>
+                <li><a class="wn-nav__link" href="#wn-why">Why Choose Us</a></li>
+                <li><a class="wn-nav__link" href="#wn-services">Services</a></li>
+                <li><a class="wn-nav__link" href="#wn-portfolio">Projects</a></li>
+                <li><a class="wn-nav__link" href="#wn-before-after">Before & After</a></li>
+                <li><a class="wn-nav__link" href="#wn-credentials">Credentials</a></li>
+                <li><a class="wn-nav__link" href="#wn-contact">Contact</a></li>
             </ul>
 
-            <!-- Actions (CTA + hamburger for mobile) -->
-            <div class="nav__actions">
-                <!-- CTA button (lead-gen focus) -->
-                <a class="btn btn--cta" href="#contact">Consult</a>
+            <!-- Actions -->
+            <div class="wn-nav__actions">
+                <a class="wn-btn wn-btn--cta" href="#wn-contact">Consult</a>
 
-                <!--
-          Hamburger button:
-          - aria-controls points to the mobile panel id
-          - aria-expanded toggles true/false via JS
-        -->
-                <button class="hamburger" type="button" aria-label="Open menu" aria-controls="mobile-menu"
+                <button class="wn-hamburger" type="button" aria-label="Open menu" aria-controls="wn-mobile-menu"
                     aria-expanded="false">
-                    <span class="hamburger__bar" aria-hidden="true"></span>
-                    <span class="hamburger__bar" aria-hidden="true"></span>
-                    <span class="hamburger__bar" aria-hidden="true"></span>
+                    <span class="wn-hamburger__bar" aria-hidden="true"></span>
+                    <span class="wn-hamburger__bar" aria-hidden="true"></span>
+                    <span class="wn-hamburger__bar" aria-hidden="true"></span>
                 </button>
             </div>
 
-            <!-- Mobile panel (hidden on desktop, shown at <= 992px) -->
-            <div class="mobile-menu" id="mobile-menu">
-                <ul class="mobile-menu__links" aria-label="Mobile">
-                    <li><a class="mobile-menu__link" href="#about">About</a></li>
-                    <li><a class="mobile-menu__link" href="#why">Why Choose Us</a></li>
-                    <li><a class="mobile-menu__link" href="#services">Services</a></li>
-                    <li><a class="mobile-menu__link" href="#portfolio">Portfolio</a></li>
-                    <li><a class="mobile-menu__link" href="#landscaping">Landscaping</a></li>
-                    <li><a class="mobile-menu__link" href="#before-after">Before & After</a></li>
-                    <li><a class="mobile-menu__link" href="#credentials">Credentials</a></li>
-                    <li><a class="mobile-menu__link" href="#contact">Contact</a></li>
+            <!-- Mobile panel -->
+            <div class="wn-mobile-menu" id="wn-mobile-menu">
+                <ul class="wn-mobile-menu__links" aria-label="Mobile">
+                    <li><a class="wn-mobile-menu__link" href="#wn-about">About</a></li>
+                    <li><a class="wn-mobile-menu__link" href="#wn-why">Why Choose Us</a></li>
+                    <li><a class="wn-mobile-menu__link" href="#wn-services">Services</a></li>
+                    <li><a class="wn-mobile-menu__link" href="#wn-portfolio">Projects</a></li>
+                    <li><a class="wn-mobile-menu__link" href="#wn-before-after">Before & After</a></li>
+                    <li><a class="wn-mobile-menu__link" href="#wn-credentials">Credentials</a></li>
+                    <li><a class="wn-mobile-menu__link" href="#wn-contact">Contact</a></li>
                 </ul>
-
-                <!-- Mobile CTA duplicated for convenience -->
             </div>
+
         </nav>
     </header>
 
-    <!-- HERO (Luxury / High-impact) -->
-    <section class="hero white_spacing" id="top" aria-label="Hero">
+    <!-- HERO -->
+    <section class="wn-hero wn-white-spacing" id="wn-top" aria-label="Hero">
+        <div class="wn-hero__bg wn-hero__bg--a" aria-hidden="true"></div>
+        <div class="wn-hero__bg wn-hero__bg--b" aria-hidden="true"></div>
+        <div class="wn-hero__overlay" aria-hidden="true"></div>
 
-        <!-- Background slideshow layers (two layers for smooth crossfade) -->
-        <div class="hero__bg hero__bg--a" aria-hidden="true"></div>
-        <div class="hero__bg hero__bg--b" aria-hidden="true"></div>
-        <div class="hero__overlay" aria-hidden="true"></div>
+        <div class="wn-hero__container wn-hero__grid">
+            <div class="wn-hero__content">
+                <p class="wn-hero__kicker">UAE • Interior Finishing • Luxury Decoration • Construction</p>
 
-        <div class="hero__container hero__grid">
-            <div class="hero__content">
-                <p class="hero__kicker">UAE • Interior Finishing • Luxury Decoration • Construction</p>
+                <h1 class="wn-hero__title">Crafting Luxury Spaces with Precision & Elegance</h1>
 
-                <h1 class="hero__title">Crafting Luxury Spaces with Precision & Elegance</h1>
-
-                <p class="hero__subtitle">
+                <p class="wn-hero__subtitle">
                     CUSTODIAN Building Contracting L.L.C. delivers premium fit-out, renovation, and
                     construction—built to the highest standards.
                 </p>
 
-                <div class="hero__actions">
-                    <a class="btn btn--cta hero__cta" href="#contact">Consult</a>
-                    <a class="btn btn--ghost hero__cta" href="#portfolio">View Portfolio</a>
+                <div class="wn-hero__actions">
+                    <a class="wn-btn wn-btn--cta wn-hero__cta" href="#wn-contact">Consult</a>
+                    <a class="wn-btn wn-btn--ghost wn-hero__cta" href="#wn-portfolio">View Projects</a>
                 </div>
 
-                <div class="hero__trust" aria-label="Credentials">
-                    <span class="hero__trust-item">Trade License</span>
-                    <span class="hero__trust-item">Ejari</span>
-                    <span class="hero__trust-item">VAT Registered</span>
+                <div class="wn-hero__trust" aria-label="Credentials">
+                    <span class="wn-hero__trust-item">Trade License</span>
+                    <span class="wn-hero__trust-item">Ejari</span>
+                    <span class="wn-hero__trust-item">VAT Registered</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ABOUT US (from PDF) -->
-    <section id="about" class="about white_spacing" aria-label="About Us">
-        <div class="about__flex">
+    <!-- ABOUT -->
+    <section id="wn-about" class="wn-about wn-white-spacing" aria-label="About Us">
+        <div class="wn-about__flex">
 
-            <!-- LEFT: text -->
-            <div class="about__content">
-                <h2 class="about__heading">About Us</h2>
+            <div class="wn-about__content">
+                <h2 class="wn-about__heading">About Us</h2>
 
-                <h3 class="about__title">
+                <h3 class="wn-about__title">
                     Your trusted partner in construction and contracting excellence in the UAE.
                 </h3>
 
-                <p class="about__text">
+                <p class="wn-about__text">
                     CUSTODIAN is a professional contracting company dedicated to quality and trust. Based in the UAE, we
                     leverage our expertise to deliver modern construction solutions that meet the highest standards. Our
                     team
@@ -147,153 +125,144 @@
                 </p>
             </div>
 
-            <!-- RIGHT: image -->
-            <div class="about__media">
+            <div class="wn-about__media">
                 <img src="./assets/imgs/about.jpg" alt="Luxury interior project by Custodian" />
             </div>
 
         </div>
     </section>
 
-    <!-- WHY CHOOSE US -->
-    <section id="why" class="why white_spacing" aria-label="Why Choose Us">
-        <div class="why__head">
-            <h2 class="why__title">Why Choose Us</h2>
-            <p class="why__subtitle">
+    <!-- WHY -->
+    <section id="wn-why" class="wn-why wn-white-spacing" aria-label="Why Choose Us">
+        <div class="wn-why__head">
+            <h2 class="wn-why__title">Why Choose Us</h2>
+            <p class="wn-why__subtitle">
                 Built on craftsmanship, clarity, and commitment—so every project runs smoothly from start to finish.
             </p>
         </div>
 
-        <div class="why__grid">
-            <!-- Card 1 -->
-            <article class="why__card">
-                <div class="why__media" aria-hidden="true">
-                    <img src="./assets/imgs/why_experienced_team.png" alt="">
+        <div class="wn-why__grid">
+            <article class="wn-why__card">
+                <div class="wn-why__media" aria-hidden="true">
+                    <img src="./assets/imgs/why_experienced_team.png" alt="" />
                 </div>
-                <h3 class="why__card-title">Experienced Team</h3>
-                <p class="why__card-text">
+                <h3 class="wn-why__card-title">Experienced Team</h3>
+                <p class="wn-why__card-text">
                     Skilled specialists who deliver consistent quality across fit-out, renovation, and construction.
                 </p>
             </article>
 
-            <!-- Card 2 -->
-            <article class="why__card">
-                <div class="why__media" aria-hidden="true">
-                    <img src="./assets/imgs/why_quality_standards.png" alt="">
+            <article class="wn-why__card">
+                <div class="wn-why__media" aria-hidden="true">
+                    <img src="./assets/imgs/why_quality_standards.png" alt="" />
                 </div>
-
-                <h3 class="why__card-title">Quality Standards</h3>
-                <p class="why__card-text">
+                <h3 class="wn-why__card-title">Quality Standards</h3>
+                <p class="wn-why__card-text">
                     Premium materials, precise finishing, and strict checks—aligned with high-end expectations.
                 </p>
             </article>
 
-            <!-- Card 3 -->
-            <article class="why__card">
-                <div class="why__media" aria-hidden="true">
-                    <img src="./assets/imgs/why_timely_delievery.png" alt="">
+            <article class="wn-why__card">
+                <div class="wn-why__media" aria-hidden="true">
+                    <img src="./assets/imgs/why_timely_delievery.png" alt="" />
                 </div>
-                <h3 class="why__card-title">Timely Delivery</h3>
-                <p class="why__card-text">
+                <h3 class="wn-why__card-title">Timely Delivery</h3>
+                <p class="wn-why__card-text">
                     Clear schedules and dependable execution—so you get results on time without surprises.
                 </p>
             </article>
         </div>
     </section>
 
-    <!-- OUR SERVICES -->
-    <section id="services" class="services white_spacing" aria-label="Our Services">
-        <div class="services__head">
-            <h2 class="services__title">Our Comprehensive Services</h2>
-            <p class="services__subtitle">
+    <!-- SERVICES -->
+    <section id="wn-services" class="wn-services wn-white-spacing" aria-label="Our Services">
+        <div class="wn-services__head">
+            <h2 class="wn-services__title">Our Comprehensive Services</h2>
+            <p class="wn-services__subtitle">
                 Tailored solutions for luxury interiors, construction, and ongoing property care—delivered with
                 precision.
             </p>
         </div>
 
-        <div class="services__grid">
-            <!-- Card 1 -->
-            <article class="services__card">
-
-                <!-- Image (NEW) -->
-                <div class="services__media">
+        <div class="wn-services__grid">
+            <article class="wn-services__card">
+                <div class="wn-services__media">
                     <img src="./assets/imgs/services_construction.png" alt="Construction service" />
                 </div>
 
-                <div class="services__top">
-                    <h3 class="services__card-title">Construction</h3>
-                    <span class="services__badge">Core</span>
+                <div class="wn-services__top">
+                    <h3 class="wn-services__card-title">Construction</h3>
+                    <span class="wn-services__badge">Core</span>
                 </div>
-                <p class="services__text">
+
+                <p class="wn-services__text">
                     End-to-end construction services with clear planning, reliable execution, and premium finishing.
                 </p>
-                <ul class="services__list">
+
+                <ul class="wn-services__list">
                     <li>Project planning & execution</li>
                     <li>Structural works & supervision</li>
                     <li>High-end finishes</li>
                 </ul>
             </article>
 
-            <!-- Card 2 -->
-            <article class="services__card">
-
-                <!-- Image (NEW) -->
-                <div class="services__media">
+            <article class="wn-services__card">
+                <div class="wn-services__media">
                     <img src="./assets/imgs/services_renovation.png" alt="Renovation service" />
                 </div>
 
-                <div class="services__top">
-                    <h3 class="services__card-title">Renovation</h3>
-                    <span class="services__badge">Upgrade</span>
+                <div class="wn-services__top">
+                    <h3 class="wn-services__card-title">Renovation</h3>
+                    <span class="wn-services__badge">Upgrade</span>
                 </div>
-                <p class="services__text">
+
+                <p class="wn-services__text">
                     Transform existing spaces with modern design improvements and refined construction solutions.
                 </p>
-                <ul class="services__list">
+
+                <ul class="wn-services__list">
                     <li>Interior upgrades</li>
                     <li>Layout adjustments</li>
                     <li>Material & finish refresh</li>
                 </ul>
             </article>
 
-            <!-- Card 3 -->
-            <article class="services__card">
-
-                <!-- Image (NEW) -->
-                <div class="services__media">
+            <article class="wn-services__card">
+                <div class="wn-services__media">
                     <img src="./assets/imgs/services_fit_out.png" alt="Luxury fit-out service" />
                 </div>
 
-                <div class="services__top">
-                    <h3 class="services__card-title">Fit-Out</h3>
-                    <span class="services__badge">Luxury</span>
+                <div class="wn-services__top">
+                    <h3 class="wn-services__card-title">Fit-Out</h3>
+                    <span class="wn-services__badge">Luxury</span>
                 </div>
-                <p class="services__text">
+
+                <p class="wn-services__text">
                     Premium interior fit-out for residences and commercial spaces with attention to detail.
                 </p>
-                <ul class="services__list">
+
+                <ul class="wn-services__list">
                     <li>Custom interiors</li>
                     <li>Joinery & detailing</li>
                     <li>Turnkey handover</li>
                 </ul>
             </article>
 
-            <!-- Card 4 -->
-            <article class="services__card">
-
-                <!-- Image (NEW) -->
-                <div class="services__media">
+            <article class="wn-services__card">
+                <div class="wn-services__media">
                     <img src="./assets/imgs/services_maintenance.png" alt="Maintenance service" />
                 </div>
 
-                <div class="services__top">
-                    <h3 class="services__card-title">Maintenance</h3>
-                    <span class="services__badge">Care</span>
+                <div class="wn-services__top">
+                    <h3 class="wn-services__card-title">Maintenance</h3>
+                    <span class="wn-services__badge">Care</span>
                 </div>
-                <p class="services__text">
+
+                <p class="wn-services__text">
                     Reliable maintenance packages to keep your property performing and looking its best year-round.
                 </p>
-                <ul class="services__list">
+
+                <ul class="wn-services__list">
                     <li>Preventive maintenance</li>
                     <li>Repairs & touch-ups</li>
                     <li>Scheduled inspections</li>
@@ -302,58 +271,217 @@
         </div>
     </section>
 
-
-    <!-- Next sections placeholders (we’ll build them one by one) -->
-    <!-- PORTFOLIO (Projects Overview) -->
-    <section id="portfolio" class="portfolio white_spacing" aria-label="Portfolio">
-        <div class="portfolio__head">
-            <h2 class="portfolio__title">Portfolio</h2>
-            <p class="portfolio__subtitle">
-                Selected projects across luxury villas, renovations, fit-out, and exterior works. Explore one cover
-                image per project — full galleries live inside each project page.
+    <!-- PORTFOLIO -->
+    <section id="wn-portfolio" class="wn-portfolio wn-white-spacing" aria-label="Portfolio">
+        <div class="wn-portfolio__head">
+            <h2 class="wn-portfolio__title">Projects</h2>
+            <p class="wn-portfolio__subtitle">
+                A curated selection of luxury work across villas, commercial spaces, outdoor
+                features, and detailed craftsmanship. One cover image per project — full galleries
+                live inside each project page.
             </p>
         </div>
 
-        <!-- Filter row (simple + premium) -->
-        <div class="portfolio__filters" role="tablist" aria-label="Portfolio Filters">
-            <!-- data-filter matches project.category in JS -->
-            <button class="portfolio__chip is-active" type="button" data-filter="all" role="tab" aria-selected="true">
-                All
+        <div class="wn-portfolio__filters" role="tablist" aria-label="Project Type">
+            <button class="wn-portfolio__chip wn-is-active" type="button" data-filter="all" role="tab"
+                aria-selected="true">
+                All Projects
             </button>
-            <button class="portfolio__chip" type="button" data-filter="villa" role="tab" aria-selected="false">
-                Villas
+            <button class="wn-portfolio__chip" type="button" data-filter="residential" role="tab" aria-selected="false">
+                Residential
             </button>
-            <button class="portfolio__chip" type="button" data-filter="renovation" role="tab" aria-selected="false">
-                Renovation
+            <button class="wn-portfolio__chip" type="button" data-filter="landscape" role="tab" aria-selected="false">
+                Landscape / Outdoor
             </button>
-            <button class="portfolio__chip" type="button" data-filter="fitout" role="tab" aria-selected="false">
-                Fit-Out
-            </button>
-            <button class="portfolio__chip" type="button" data-filter="exterior" role="tab" aria-selected="false">
-                Exterior
+            <button class="wn-portfolio__chip" type="button" data-filter="details" role="tab" aria-selected="false">
+                Design Details
             </button>
         </div>
 
-        <!-- Grid (JS will render cards here) -->
-        <div class="portfolio__grid" id="portfolio-grid" aria-live="polite"></div>
+        <div class="wn-portfolio__grid" id="wn-portfolio-grid" aria-live="polite"></div>
 
-        <!-- Sub CTA -->
-        <div class="portfolio__cta">
-            <p class="portfolio__cta-text">Want a similar finish for your space?</p>
-            <a class="btn btn--cta" href="#contact">Request a Consultation</a>
+        <div class="wn-portfolio__cta">
+            <p class="wn-portfolio__cta-text">Want a similar finish for your space?</p>
+            <a class="wn-btn wn-btn--cta" href="#wn-contact">Request a Consultation</a>
         </div>
     </section>
 
-    <section id="landscaping" class="demo__section">
-        <h2>Landscaping</h2>
+    <!-- BEFORE & AFTER -->
+    <section id="wn-before-after" class="wn-ba wn-white-spacing" aria-label="Before and After">
+        <div class="wn-ba__head">
+            <h2 class="wn-ba__title">Before &amp; After</h2>
+            <p class="wn-ba__subtitle">
+                Drag the curtain to reveal the transformation — designed with a luxury, minimal feel.
+            </p>
+        </div>
+
+        <div class="wn-ba__grid">
+            <article class="wn-ba__card">
+                <div class="wn-ba__top">
+                    <h3 class="wn-ba__card-title">Luxury Transformation</h3>
+                    <span class="wn-ba__badge">Renovation</span>
+                </div>
+
+                <div class="wn-ba__frame" data-wn-ba aria-label="Before and after curtain slider">
+                    <img class="wn-ba__img wn-ba__img--before" src="./assets/imgs/Before & After/after_1.png"
+                        alt="Before" loading="lazy" />
+
+                    <div class="wn-ba__curtain" aria-hidden="true">
+                        <img class="wn-ba__img wn-ba__img--after" src="./assets/imgs/Before & After/before_1.png"
+                            alt="After" loading="lazy" />
+                    </div>
+
+                    <div class="wn-ba__handle" aria-hidden="true">
+                        <span class="wn-ba__knob" aria-hidden="true"></span>
+                    </div>
+
+                    <span class="wn-ba__label wn-ba__label--before">Before</span>
+                    <span class="wn-ba__label wn-ba__label--after">After</span>
+                </div>
+
+                <p class="wn-ba__note">
+                    Premium finishing, refined detailing, and a clean luxury result.
+                </p>
+            </article>
+        </div>
     </section>
-    <section id="before-after" class="demo__section">
-        <h2>Before & After</h2>
+
+    <!-- CREDENTIALS -->
+    <section id="wn-credentials" class="wn-cred wn-white-spacing" aria-label="Credentials and Trust">
+        <div class="wn-cred__head">
+            <h2 class="wn-cred__title">Credentials &amp; Trust</h2>
+            <p class="wn-cred__subtitle">
+                Verified documentation and compliance — delivered with professional transparency and confidence.
+            </p>
+        </div>
+
+        <div class="wn-cred__grid">
+            <article class="wn-cred__card">
+                <div class="wn-cred__top">
+                    <div class="wn-cred__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path
+                                d="M12 2l7 4v6c0 5-3 9-7 10-4-1-7-5-7-10V6l7-4Zm0 2.3L7 6.9v5.1c0 4.1 2.3 7.5 5 8.4 2.7-.9 5-4.3 5-8.4V6.9l-5-2.6Zm-1 12.2 5.2-5.2 1.4 1.4-6.6 6.6-3.6-3.6 1.4-1.4 2.2 2.2Z">
+                            </path>
+                        </svg>
+                    </div>
+
+                    <span class="wn-cred__badge">Verified</span>
+                </div>
+
+                <h3 class="wn-cred__card-title">Trade License</h3>
+                <p class="wn-cred__text">
+                    Registered and authorized to operate in the UAE — ensuring legitimate contracting delivery.
+                </p>
+
+                <div class="wn-cred__actions">
+                    <button class="wn-cred__btn" type="button" data-wn-doc="./assets/docs/trade-license.jpg"
+                        data-wn-title="Trade License">
+                        View Document
+                    </button>
+                </div>
+            </article>
+
+            <article class="wn-cred__card">
+                <div class="wn-cred__top">
+                    <div class="wn-cred__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M6 2h12v2H6V2Zm1 5h10v2H7V7Zm-1 4h12v11H6V11Zm2 2v7h8v-7H8Z"></path>
+                        </svg>
+                    </div>
+
+                    <span class="wn-cred__badge">Verified</span>
+                </div>
+
+                <h3 class="wn-cred__card-title">Ejari</h3>
+                <p class="wn-cred__text">
+                    Official tenancy registration — supporting operational transparency and credibility.
+                </p>
+
+                <div class="wn-cred__actions">
+                    <button class="wn-cred__btn" type="button" data-wn-doc="./assets/docs/ejari.jpg"
+                        data-wn-title="Ejari">
+                        View Document
+                    </button>
+                </div>
+            </article>
+
+            <article class="wn-cred__card">
+                <div class="wn-cred__top">
+                    <div class="wn-cred__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M12 2a10 10 0 100 20 10 10 0 000-20Zm1 5v2h2v2h-2v6h-2v-6H9V9h2V7h2Z"></path>
+                        </svg>
+                    </div>
+
+                    <span class="wn-cred__badge">Verified</span>
+                </div>
+
+                <h3 class="wn-cred__card-title">VAT Registered</h3>
+                <p class="wn-cred__text">
+                    Compliance-ready invoicing and documentation — structured for professional procurement.
+                </p>
+
+                <div class="wn-cred__actions">
+                    <button class="wn-cred__btn" type="button" data-wn-doc="./assets/docs/vat.jpg"
+                        data-wn-title="VAT Registration">
+                        View Document
+                    </button>
+                </div>
+            </article>
+
+            <article class="wn-cred__card">
+                <div class="wn-cred__top">
+                    <div class="wn-cred__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M4 4h16v16H4V4Zm2 2v12h12V6H6Zm2 2h8v2H8V8Zm0 4h8v2H8v-2Z"></path>
+                        </svg>
+                    </div>
+
+                    <span class="wn-cred__badge">Trust</span>
+                </div>
+
+                <h3 class="wn-cred__card-title">Company Profile</h3>
+                <p class="wn-cred__text">
+                    A clear snapshot of capabilities, scope, and delivery standards — ready for review.
+                </p>
+
+                <div class="wn-cred__actions">
+                    <button class="wn-cred__btn" type="button" data-wn-doc="./assets/docs/company-profile.jpg"
+                        data-wn-title="Company Profile">
+                        View Document
+                    </button>
+                </div>
+            </article>
+        </div>
+
+        <div class="wn-cred__strip" aria-label="Trust highlights">
+            <span class="wn-cred__pill">Transparent scope &amp; BOQ</span>
+            <span class="wn-cred__pill">Dedicated supervision</span>
+            <span class="wn-cred__pill">Premium finishing standards</span>
+            <span class="wn-cred__pill">Clear timelines</span>
+        </div>
     </section>
-    <section id="credentials" class="demo__section">
-        <h2>Credentials</h2>
-    </section>
-    <section id="contact" class="demo__section">
+
+    <!-- Credentials Modal -->
+    <div class="wn-cred-modal" id="wn-cred-modal" aria-hidden="true" role="dialog"
+        aria-label="Credential document viewer">
+        <div class="wn-cred-modal__backdrop" data-wn-close="true"></div>
+
+        <div class="wn-cred-modal__panel" role="document">
+            <div class="wn-cred-modal__top">
+                <h3 class="wn-cred-modal__title" id="wn-cred-modal-title">Document</h3>
+                <button class="wn-cred-modal__close" type="button" aria-label="Close viewer"
+                    data-wn-close="true">✕</button>
+            </div>
+
+            <div class="wn-cred-modal__body">
+                <img class="wn-cred-modal__img" id="wn-cred-modal-img" alt="Credential document preview" />
+            </div>
+        </div>
+    </div>
+
+    <section id="wn-contact" class="wn-demo__section">
         <h2>Contact</h2>
     </section>
 
