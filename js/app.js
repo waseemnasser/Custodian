@@ -3,34 +3,128 @@
 /* =========================================================
    Navbar interactions (mobile toggle)
 ========================================================= */
-const wnHamburger = document.querySelector(".wn-hamburger");
-const wnMobileMenu = document.querySelector("#wn-mobile-menu");
+/* =========================================================
+   LUXURY MOBILE NAVBAR INTERACTIONS
+   ========================================================= */
+/* =========================================================
+   LUXURY MOBILE NAVBAR INTERACTIONS
+   ========================================================= */
+/* =========================================================
+   LUXURY MOBILE NAVBAR INTERACTIONS
+   ========================================================= */
+(function initLuxuryMobileNav() {
+    const wnHamburger = document.querySelector(".wn-hamburger");
+    const wnMobileMenu = document.querySelector("#wn-mobile-menu");
+    const wnCloseBtn = document.querySelector(".wn-mobile-menu__close");
+    const wnMobileLinks = document.querySelectorAll(".wn-mobile-menu__link");
 
-if (wnHamburger && wnMobileMenu) {
-    const wnSetMenuState = (isOpen) => {
-        wnMobileMenu.classList.toggle("wn-is-open", isOpen);
-        wnHamburger.setAttribute("aria-expanded", String(isOpen));
-        wnHamburger.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+    if (!wnHamburger || !wnMobileMenu) {
+        console.error("Mobile menu elements not found!");
+        return;
+    }
+
+    // Toggle menu
+    const toggleMobileMenu = (isOpen) => {
+        if (isOpen) {
+            wnMobileMenu.classList.add("wn-is-open");
+            wnHamburger.classList.add("wn-is-open");
+            document.body.classList.add("wn-no-scroll");
+            wnHamburger.setAttribute("aria-expanded", "true");
+            wnHamburger.setAttribute("aria-label", "Close menu");
+
+            // Disable scrolling on body
+            document.body.style.overflow = "hidden";
+            document.body.style.position = "fixed";
+            document.body.style.width = "100%";
+        } else {
+            wnMobileMenu.classList.remove("wn-is-open");
+            wnHamburger.classList.remove("wn-is-open");
+            document.body.classList.remove("wn-no-scroll");
+            wnHamburger.setAttribute("aria-expanded", "false");
+            wnHamburger.setAttribute("aria-label", "Open menu");
+
+            // Re-enable scrolling
+            document.body.style.overflow = "";
+            document.body.style.position = "";
+            document.body.style.width = "";
+        }
     };
 
-    wnHamburger.addEventListener("click", () => {
-        const isOpen = wnMobileMenu.classList.contains("wn-is-open");
-        wnSetMenuState(!isOpen);
+    // Open menu
+    wnHamburger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isOpen = wnHamburger.classList.contains("wn-is-open");
+        toggleMobileMenu(!isOpen);
     });
 
-    wnMobileMenu.addEventListener("click", (e) => {
-        const target = e.target;
-        if (target && target.matches("a")) wnSetMenuState(false);
+    // Close menu with close button
+    if (wnCloseBtn) {
+        wnCloseBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMobileMenu(false);
+        });
+    }
+
+    // Close menu when clicking links AND scroll to section
+    wnMobileLinks.forEach(link => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault(); // Prevent default anchor behavior
+
+            const href = link.getAttribute("href");
+            if (!href || href === "#") return;
+
+            // Close the mobile menu
+            toggleMobileMenu(false);
+
+            // Allow time for menu to close before scrolling
+            setTimeout(() => {
+                // Check if it's an anchor link (starts with #)
+                if (href.startsWith("#")) {
+                    const targetId = href.substring(1);
+                    const targetElement = document.getElementById(targetId);
+
+                    if (targetElement) {
+                        // Smooth scroll to the target element
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+
+                        // Update URL without page jump
+                        window.history.pushState(null, null, href);
+                    }
+                } else {
+                    // It's a regular link, navigate normally
+                    window.location.href = href;
+                }
+            }, 400); // Match this with your CSS transition duration
+        });
     });
 
+    // Close with Escape key
     document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") wnSetMenuState(false);
+        if (e.key === "Escape" && wnHamburger.classList.contains("wn-is-open")) {
+            toggleMobileMenu(false);
+        }
     });
 
-    window.addEventListener("resize", () => {
-        if (window.innerWidth > 992) wnSetMenuState(false);
+    // Close when clicking outside
+    document.addEventListener("click", (e) => {
+        if (wnHamburger.classList.contains("wn-is-open") &&
+            !wnMobileMenu.contains(e.target) &&
+            e.target !== wnHamburger &&
+            !wnHamburger.contains(e.target)) {
+            toggleMobileMenu(false);
+        }
     });
-}
+
+    // Handle resize
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 992 && wnHamburger.classList.contains("wn-is-open")) {
+            toggleMobileMenu(false);
+        }
+    });
+})();
 
 /* =========================================================
    HERO BACKGROUND SLIDESHOW
@@ -315,6 +409,9 @@ if (wnHeroBg && wnTitleEl && wnSubEl && wnFactsEl && wnGalleryEl) {
 /* =========================================================
    BEFORE & AFTER (Curtain Reveal)
 ========================================================= */
+/* =========================================================
+   BEFORE & AFTER (Draggable Curtain Reveal - Hold & Slide Only)
+========================================================= */
 function wnClamp(n, min, max) {
     return Math.max(min, Math.min(max, n));
 }
@@ -344,76 +441,97 @@ function wnInitBeforeAfterCurtain() {
         };
 
         const onPointerDown = (e) => {
+            // Only start dragging if clicking on the handle or very close to it
+            const handleRect = handle.getBoundingClientRect();
+            const clickX = e.clientX;
+            const clickY = e.clientY;
+
+            // Check if click is on handle (with some tolerance)
+            const isOnHandle =
+                clickX >= handleRect.left - 20 &&
+                clickX <= handleRect.right + 20 &&
+                clickY >= handleRect.top - 20 &&
+                clickY <= handleRect.bottom + 20;
+
+            if (!isOnHandle) {
+                // Don't start dragging if not clicking near handle
+                return;
+            }
+
+            e.preventDefault(); // Prevent text selection
             dragging = true;
-            frame.setPointerCapture?.(e.pointerId);
+            frame.style.cursor = 'grabbing';
+            handle.style.cursor = 'grabbing';
+
+            if (frame.setPointerCapture) {
+                frame.setPointerCapture(e.pointerId);
+            }
+
+            // Update position based on initial click
             setRatio(ratioFromClientX(e.clientX));
         };
 
         const onPointerMove = (e) => {
             if (!dragging) return;
+            e.preventDefault();
             setRatio(ratioFromClientX(e.clientX));
         };
 
         const endDrag = () => {
+            if (!dragging) return;
             dragging = false;
+            frame.style.cursor = '';
+            handle.style.cursor = '';
+
+            if (frame.releasePointerCapture) {
+                frame.releasePointerCapture();
+            }
         };
 
+        // Set initial position
         setRatio(ratio);
 
+        // Pointer events for touch and mouse
+        handle.addEventListener("pointerdown", onPointerDown);
         frame.addEventListener("pointerdown", onPointerDown);
+
         frame.addEventListener("pointermove", onPointerMove);
-        frame.addEventListener("pointerup", endDrag);
-        frame.addEventListener("pointercancel", endDrag);
-        frame.addEventListener("pointerleave", endDrag);
+
+        // End drag events
+        document.addEventListener("pointerup", endDrag);
+        document.addEventListener("pointercancel", endDrag);
+
+        // Prevent default touch actions on handle
+        handle.addEventListener("touchstart", (e) => {
+            if (dragging) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Disable click-to-slide on the frame
+        frame.addEventListener("click", (e) => {
+            if (!dragging) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        });
+
+        // Make sure handle has proper cursor
+        handle.style.cursor = 'grab';
+
+        // Add hover effect for handle
+        handle.addEventListener("mouseenter", () => {
+            if (!dragging) {
+                handle.style.cursor = 'grab';
+            }
+        });
+
+        handle.addEventListener("mouseleave", () => {
+            if (!dragging) {
+                handle.style.cursor = '';
+            }
+        });
     });
 }
 
 wnInitBeforeAfterCurtain();
-
-/* =========================================================
-   CREDENTIALS MODAL (document preview)
-========================================================= */
-(function wnInitCredentialsModal() {
-    const modal = document.querySelector("#wn-cred-modal");
-    const modalImg = document.querySelector("#wn-cred-modal-img");
-    const modalTitle = document.querySelector("#wn-cred-modal-title");
-
-    if (!modal || !modalImg || !modalTitle) return;
-
-    const open = (src, title) => {
-        modalImg.src = src;
-        modalTitle.textContent = title || "Document";
-        modal.classList.add("wn-is-open");
-        modal.setAttribute("aria-hidden", "false");
-        document.body.style.overflow = "hidden";
-    };
-
-    const close = () => {
-        modal.classList.remove("wn-is-open");
-        modal.setAttribute("aria-hidden", "true");
-        modalImg.src = "";
-        document.body.style.overflow = "";
-    };
-
-    document.addEventListener("click", (e) => {
-        const btn = e.target.closest(".wn-cred__btn");
-        if (!btn) return;
-
-        const src = btn.getAttribute("data-wn-doc");
-        const title = btn.getAttribute("data-wn-title");
-        if (!src) return;
-
-        open(src, title);
-    });
-
-    modal.addEventListener("click", (e) => {
-        const closeTarget = e.target.closest("[data-wn-close='true']");
-        if (closeTarget) close();
-    });
-
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && modal.classList.contains("wn-is-open")) {
-            close();
-        }
-    });
-})();
