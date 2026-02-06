@@ -326,7 +326,7 @@
 }
 
 /* --- Luxury close button --- */
-.wn-mobile-menu__close {
+/* .wn-mobile-menu__close {
     width: 48px;
     height: 48px;
     border-radius: 50%;
@@ -337,19 +337,19 @@
     place-items: center;
     cursor: pointer;
     transition: all 0.3s ease;
-}
+} */
 
-.wn-mobile-menu__close:hover {
+/* .wn-mobile-menu__close:hover {
     background: rgba(12, 107, 107, 0.05);
     border-color: rgba(12, 107, 107, 0.4);
     transform: rotate(90deg);
-}
+} */
 
-.wn-mobile-menu__close-icon {
+/* .wn-mobile-menu__close-icon {
     font-size: 20px;
     color: rgba(13, 27, 27, 0.8);
     font-weight: 300;
-}
+} */
 
 /* --- Navigation links --- */
 .wn-mobile-menu__nav {
@@ -2589,6 +2589,7 @@ body.wn-no-scroll {
 
     .wn-pgallery {
         padding-top: 60px;
+        padding-bottom: 60px;
     }
 
     .wn-pgallery__title {
@@ -2598,6 +2599,10 @@ body.wn-no-scroll {
     .wn-pgallery__grid {
         grid-template-columns: 1fr;
         gap: 15px;
+    }
+
+    .wn-pcta {
+        padding-bottom: 70px;
     }
 
     .wn-pcta__card {
@@ -2660,6 +2665,7 @@ body.wn-no-scroll {
     .wn-contact__form-card {
         padding: 24px;
     }
+
 
     .wn-footer {
         padding-top: 50px;
