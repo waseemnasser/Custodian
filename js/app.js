@@ -1,127 +1,132 @@
-// js/app.js
+// js/app.js - Simplified with Working Navbar Links
 
 /* =========================================================
-   Navbar interactions (mobile toggle)
-========================================================= */
-/* =========================================================
-   LUXURY MOBILE NAVBAR INTERACTIONS
+   BASIC FADE-IN ANIMATIONS ONLY
    ========================================================= */
-/* =========================================================
-   LUXURY MOBILE NAVBAR INTERACTIONS
-   ========================================================= */
-/* =========================================================
-   LUXURY MOBILE NAVBAR INTERACTIONS
-   ========================================================= */
-(function initLuxuryMobileNav() {
-    const wnHamburger = document.querySelector(".wn-hamburger");
-    const wnMobileMenu = document.querySelector("#wn-mobile-menu");
-    const wnCloseBtn = document.querySelector(".wn-mobile-menu__close");
-    const wnMobileLinks = document.querySelectorAll(".wn-mobile-menu__link");
-
-    if (!wnHamburger || !wnMobileMenu) {
-        console.error("Mobile menu elements not found!");
-        return;
-    }
-
-    // Toggle menu
-    const toggleMobileMenu = (isOpen) => {
-        if (isOpen) {
-            wnMobileMenu.classList.add("wn-is-open");
-            wnHamburger.classList.add("wn-is-open");
-            document.body.classList.add("wn-no-scroll");
-            wnHamburger.setAttribute("aria-expanded", "true");
-            wnHamburger.setAttribute("aria-label", "Close menu");
-
-            // Disable scrolling on body
-            document.body.style.overflow = "hidden";
-            document.body.style.position = "fixed";
-            document.body.style.width = "100%";
-        } else {
-            wnMobileMenu.classList.remove("wn-is-open");
-            wnHamburger.classList.remove("wn-is-open");
-            document.body.classList.remove("wn-no-scroll");
-            wnHamburger.setAttribute("aria-expanded", "false");
-            wnHamburger.setAttribute("aria-label", "Open menu");
-
-            // Re-enable scrolling
-            document.body.style.overflow = "";
-            document.body.style.position = "";
-            document.body.style.width = "";
-        }
-    };
-
-    // Open menu
-    wnHamburger.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const isOpen = wnHamburger.classList.contains("wn-is-open");
-        toggleMobileMenu(!isOpen);
-    });
-
-    // Close menu with close button
-    if (wnCloseBtn) {
-        wnCloseBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            toggleMobileMenu(false);
-        });
-    }
-
-    // Close menu when clicking links AND scroll to section
-    wnMobileLinks.forEach(link => {
-        link.addEventListener("click", (e) => {
-            e.preventDefault(); // Prevent default anchor behavior
-
-            const href = link.getAttribute("href");
-            if (!href || href === "#") return;
-
-            // Close the mobile menu
-            toggleMobileMenu(false);
-
-            // Allow time for menu to close before scrolling
+   (function initSimpleAnimations() {
+    // Wait for DOM to be ready
+    document.addEventListener('DOMContentLoaded', function() {
+        // Just fade in hero content
+        const heroElements = document.querySelectorAll('.wn-hero__content > *');
+        heroElements.forEach((el, i) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
             setTimeout(() => {
-                // Check if it's an anchor link (starts with #)
-                if (href.startsWith("#")) {
-                    const targetId = href.substring(1);
-                    const targetElement = document.getElementById(targetId);
-
-                    if (targetElement) {
-                        // Smooth scroll to the target element
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-
-                        // Update URL without page jump
-                        window.history.pushState(null, null, href);
-                    }
-                } else {
-                    // It's a regular link, navigate normally
-                    window.location.href = href;
-                }
-            }, 400); // Match this with your CSS transition duration
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }, 100 + (i * 100));
         });
     });
+})();
 
-    // Close with Escape key
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && wnHamburger.classList.contains("wn-is-open")) {
-            toggleMobileMenu(false);
-        }
+/* =========================================================
+   SIMPLE SMOOTH SCROLL FOR NAVBAR LINKS (NO GSAP)
+   ========================================================= */
+(function initSmoothScroll() {
+    // Apply to ALL anchor links that start with #
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const href = this.getAttribute('href');
+            
+            // If it's just "#" or "#wn-top", go to top
+            if (href === '#' || href === '#wn-top') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+            
+            // Find the target element
+            const target = document.querySelector(href);
+            if (!target) return;
+            
+            // Calculate position considering fixed navbar
+            const navbar = document.querySelector('.wn-site-header');
+            const navbarHeight = navbar ? navbar.offsetHeight : 0;
+            const targetPosition = target.offsetTop - navbarHeight - 20;
+            
+            // Smooth scroll to position
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+            
+            // Update URL without page jump
+            history.pushState(null, null, href);
+        });
     });
+})();
 
-    // Close when clicking outside
-    document.addEventListener("click", (e) => {
-        if (wnHamburger.classList.contains("wn-is-open") &&
-            !wnMobileMenu.contains(e.target) &&
-            e.target !== wnHamburger &&
-            !wnHamburger.contains(e.target)) {
-            toggleMobileMenu(false);
+/* =========================================================
+   MOBILE MENU TOGGLE (Keep Simple)
+   ========================================================= */
+(function initMobileMenu() {
+    const hamburger = document.querySelector('.wn-hamburger');
+    const mobileMenu = document.getElementById('wn-mobile-menu');
+    const closeBtn = document.querySelector('.wn-mobile-menu__close');
+    const mobileLinks = document.querySelectorAll('.wn-mobile-menu__link');
+    
+    if (!hamburger || !mobileMenu) return;
+    
+    // Toggle menu
+    function toggleMenu(isOpen) {
+        if (isOpen) {
+            mobileMenu.classList.add('wn-is-open');
+            hamburger.classList.add('wn-is-open');
+            document.body.style.overflow = 'hidden';
+        } else {
+            mobileMenu.classList.remove('wn-is-open');
+            hamburger.classList.remove('wn-is-open');
+            document.body.style.overflow = '';
         }
+    }
+    
+    // Hamburger click
+    hamburger.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.contains('wn-is-open');
+        toggleMenu(!isOpen);
     });
-
-    // Handle resize
-    window.addEventListener("resize", () => {
-        if (window.innerWidth > 992 && wnHamburger.classList.contains("wn-is-open")) {
-            toggleMobileMenu(false);
+    
+    // Close button
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => toggleMenu(false));
+    }
+    
+    // Mobile links - close menu then scroll
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const href = link.getAttribute('href');
+            
+            // Close menu first
+            toggleMenu(false);
+            
+            // Then scroll to section
+            setTimeout(() => {
+                if (href && href.startsWith('#')) {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        const navbar = document.querySelector('.wn-site-header');
+                        const navbarHeight = navbar ? navbar.offsetHeight : 0;
+                        const targetPosition = target.offsetTop - navbarHeight - 20;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        history.pushState(null, null, href);
+                    }
+                }
+            }, 300);
+        });
+    });
+    
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('wn-is-open')) {
+            toggleMenu(false);
         }
     });
 })();
@@ -129,19 +134,22 @@
 /* =========================================================
    HERO BACKGROUND SLIDESHOW
 ========================================================= */
-const wnBgA = document.querySelector(".wn-hero__bg--a");
-const wnBgB = document.querySelector(".wn-hero__bg--b");
+(function initHeroSlideshow() {
+    const wnBgA = document.querySelector(".wn-hero__bg--a");
+    const wnBgB = document.querySelector(".wn-hero__bg--b");
 
-if (wnBgA && wnBgB) {
+    if (!wnBgA || !wnBgB) return;
+
     const images = [
-        "./assets/imgs/gallery1.jpeg",
-        "./assets/imgs/gallery2.jpeg",
-        "./assets/imgs/gallery3.jpeg",
+        "./assets/imgs/gallery1.webp",
+        "./assets/imgs/gallery2.webp",
+        "./assets/imgs/gallery3.webp",
     ];
 
     let index = 0;
     let showingA = true;
 
+    // Preload images
     images.forEach((src) => {
         const img = new Image();
         img.src = src;
@@ -152,17 +160,16 @@ if (wnBgA && wnBgB) {
 
     setInterval(() => {
         index = (index + 1) % images.length;
-
         const nextLayer = showingA ? wnBgB : wnBgA;
         const currentLayer = showingA ? wnBgA : wnBgB;
-
+        
         nextLayer.style.backgroundImage = `url("${images[index]}")`;
         nextLayer.classList.add("wn-is-active");
         currentLayer.classList.remove("wn-is-active");
-
+        
         showingA = !showingA;
     }, 5000);
-}
+})();
 
 /* =========================================================
    PROJECT DATA (single source of truth)
@@ -174,30 +181,30 @@ const PROJECTS = [
         category: "residential",
         tag: "Luxury Villa",
         location: "Dubai",
-        cover: "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-cover.png",
+        cover: "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-cover.webp",
         subtitle: "High-end residential villa executed with refined detailing and premium finishes.",
         facts: ["Residential", "Luxury Villa", "Premium Finishing", "Dubai"],
         gallery: [
-            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-1.jpeg",
-            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-2.jpeg",
-            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-3.jpeg",
-            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-4.jpeg",
-            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-5.jpeg",
-            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-6.jpeg",
-            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-7.jpeg",
-            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-8.jpeg",
-            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-9.jpeg",
-            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-10.jpeg",
-            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-11.jpeg",
-            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-12.jpeg",
-            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-13.jpeg",
-            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-14.jpeg",
-            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-15.jpeg",
-            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-16.jpeg",
-            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-20.jpeg",
-            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-21.jpeg",
-            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-22.jpeg",
-            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-23.jpeg",
+            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-1.webp",
+            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-2.webp",
+            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-3.webp",
+            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-4.webp",
+            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-5.webp",
+            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-6.webp",
+            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-7.webp",
+            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-8.webp",
+            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-9.webp",
+            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-10.webp",
+            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-11.webp",
+            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-12.webp",
+            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-13.webp",
+            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-14.webp",
+            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-15.webp",
+            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-16.webp",
+            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-20.webp",
+            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-21.webp",
+            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-22.webp",
+            "./assets/imgs/projects/Meadows_6_Street_5_Villa_2/meadows6-23.webp",
         ],
     },
     {
@@ -222,21 +229,21 @@ const PROJECTS = [
         category: "residential",
         tag: "Fit-Out",
         location: "Dubai",
-        cover: "./assets/imgs/projects/Villa_2003_Green_Community_West/green-cover.jpeg",
+        cover: "./assets/imgs/projects/Villa_2003_Green_Community_West/green-cover.webp",
         subtitle: "Turnkey villa fit-out delivered with consistent quality control and premium materials.",
         facts: ["Residential", "Fit-Out", "Turnkey", "Dubai"],
         gallery: [
-            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-1.jpeg",
-            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-2.jpeg",
-            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-3.jpeg",
-            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-4.jpeg",
-            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-5.jpeg",
-            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-6.jpeg",
-            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-7.jpeg",
-            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-8.jpeg",
-            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-9.jpeg",
-            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-10.jpeg",
-            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-46.jpeg",
+            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-1.webp",
+            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-2.webp",
+            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-3.webp",
+            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-4.webp",
+            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-5.webp",
+            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-6.webp",
+            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-7.webp",
+            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-8.webp",
+            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-9.webp",
+            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-10.webp",
+            "./assets/imgs/projects/Villa_2003_Green_Community_West/green-46.webp",
         ],
     },
     {
@@ -273,265 +280,288 @@ const PROJECTS = [
 ];
 
 /* =========================================================
-   PORTFOLIO (index.html) rendering + filters
+   PORTFOLIO FILTERING
 ========================================================= */
-const wnPortfolioGrid = document.querySelector("#wn-portfolio-grid");
-const wnFilterChips = document.querySelectorAll(".wn-portfolio__chip");
-
-function wnRenderPortfolio(filter = "all") {
-    if (!wnPortfolioGrid) return;
-
-    const list = PROJECTS.filter((p) => (filter === "all" ? true : p.category === filter));
-
-    if (!list.length) {
-        wnPortfolioGrid.innerHTML = `<p style="text-align:center;color:rgba(13,27,27,0.72)">No projects found.</p>`;
-        return;
+(function initPortfolio() {
+    const portfolioGrid = document.getElementById('wn-portfolio-grid');
+    const filterChips = document.querySelectorAll('.wn-portfolio__chip');
+    
+    if (!portfolioGrid) return;
+    
+    function renderPortfolio(filter = 'all') {
+        const filtered = PROJECTS.filter(p => filter === 'all' || p.category === filter);
+        
+        if (filtered.length === 0) {
+            portfolioGrid.innerHTML = '<p style="text-align:center;color:rgba(13,27,27,0.72)">No projects found.</p>';
+            return;
+        }
+        
+        portfolioGrid.innerHTML = filtered.map(p => `
+            <article class="wn-pcard">
+                <div class="wn-pcard__media">
+                    <img src="${p.cover}" alt="${p.title}" loading="lazy" />
+                </div>
+                <div class="wn-pcard__body">
+                    <div class="wn-pcard__top">
+                        <h3 class="wn-pcard__title">${p.title}</h3>
+                        <span class="wn-pcard__tag">${p.tag}</span>
+                    </div>
+                    <p class="wn-pcard__meta">${p.location} • ${p.subtitle}</p>
+                    <div class="wn-pcard__actions">
+                        <a class="wn-pcard__link" href="./project.html?id=${encodeURIComponent(p.id)}">View Project</a>
+                    </div>
+                </div>
+            </article>
+        `).join('');
     }
-
-    wnPortfolioGrid.innerHTML = list
-        .map(
-            (p) => `
-      <article class="wn-pcard" data-category="${p.category}">
-        <div class="wn-pcard__media">
-          <img src="${p.cover}" alt="${p.title} cover image" loading="lazy" />
-        </div>
-
-        <div class="wn-pcard__body">
-          <div class="wn-pcard__top">
-            <h3 class="wn-pcard__title">${p.title}</h3>
-            <span class="wn-pcard__tag">${p.tag}</span>
-          </div>
-
-          <p class="wn-pcard__meta">${p.location} • ${p.subtitle}</p>
-
-          <div class="wn-pcard__actions">
-            <a class="wn-pcard__link" href="./project.html?id=${encodeURIComponent(p.id)}">View Project</a>
-          </div>
-        </div>
-      </article>
-    `
-        )
-        .join("");
-}
-
-if (wnPortfolioGrid) {
-    wnRenderPortfolio("all");
-
-    wnFilterChips.forEach((chip) => {
-        chip.addEventListener("click", () => {
-            wnFilterChips.forEach((c) => {
-                c.classList.remove("wn-is-active");
-                c.setAttribute("aria-selected", "false");
-            });
-
-            chip.classList.add("wn-is-active");
-            chip.setAttribute("aria-selected", "true");
-
-            const filter = chip.dataset.filter || "all";
-            wnRenderPortfolio(filter);
+    
+    // Initial render
+    renderPortfolio('all');
+    
+    // Filter chips
+    filterChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            // Update active state
+            filterChips.forEach(c => c.classList.remove('wn-is-active'));
+            chip.classList.add('wn-is-active');
+            
+            // Filter and render
+            const filter = chip.getAttribute('data-filter') || 'all';
+            renderPortfolio(filter);
         });
     });
-}
+})();
 
 /* =========================================================
-   PROJECT PAGE (project.html)
+   PROJECT PAGE FUNCTIONALITY
 ========================================================= */
-function wnGetQueryParam(name) {
-    const url = new URL(window.location.href);
-    return url.searchParams.get(name);
-}
-
-const projectId = wnGetQueryParam("id");
-const project = PROJECTS.find((p) => p.id === projectId);
-
-const wnHeroBg = document.querySelector("#wn-project-hero-bg");
-const wnTitleEl = document.querySelector("#wn-project-title");
-const wnSubEl = document.querySelector("#wn-project-subtitle");
-const wnFactsEl = document.querySelector("#wn-project-facts");
-const wnGalleryEl = document.querySelector("#wn-project-gallery");
-
-const wnLightbox = document.querySelector("#wn-lightbox");
-const wnLightboxImg = document.querySelector("#wn-lightbox-img");
-const wnLightboxClose = document.querySelector(".wn-lightbox__close");
-
-function wnOpenLightbox(src) {
-    if (!wnLightbox || !wnLightboxImg) return;
-    wnLightboxImg.src = src;
-    wnLightbox.classList.add("wn-is-open");
-    wnLightbox.setAttribute("aria-hidden", "false");
-}
-
-function wnCloseLightbox() {
-    if (!wnLightbox) return;
-    wnLightbox.classList.remove("wn-is-open");
-    wnLightbox.setAttribute("aria-hidden", "true");
-}
-
-if (wnHeroBg && wnTitleEl && wnSubEl && wnFactsEl && wnGalleryEl) {
-    const p = project || PROJECTS[0];
-
-    wnHeroBg.style.backgroundImage = `url("${p.cover}")`;
-    wnTitleEl.textContent = p.title;
-    wnSubEl.textContent = p.subtitle;
-
-    wnFactsEl.innerHTML = (p.facts || []).map((f) => `<span class="wn-pfacts__pill">${f}</span>`).join("");
-
-    const gallery = p.gallery && p.gallery.length ? p.gallery : [p.cover];
-
-    wnGalleryEl.innerHTML = gallery
-        .map(
-            (src) => `
-      <div class="wn-pimg" data-src="${src}">
-        <img src="${src}" alt="${p.title} photo" loading="lazy" />
-      </div>
-    `
-        )
-        .join("");
-
-    wnGalleryEl.addEventListener("click", (e) => {
-        const card = e.target.closest(".wn-pimg");
-        if (!card) return;
-        const src = card.getAttribute("data-src");
-        if (src) wnOpenLightbox(src);
-    });
-
-    if (wnLightboxClose) wnLightboxClose.addEventListener("click", wnCloseLightbox);
-    if (wnLightbox) {
-        wnLightbox.addEventListener("click", (e) => {
-            if (e.target === wnLightbox) wnCloseLightbox();
-        });
+(function initProjectPage() {
+    // Get project ID from URL
+    function getProjectId() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('id');
     }
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") wnCloseLightbox();
-    });
-}
+    
+    const projectId = getProjectId();
+    const project = PROJECTS.find(p => p.id === projectId) || PROJECTS[0];
+    
+    // Update page content if on project.html
+    const heroBg = document.getElementById('wn-project-hero-bg');
+    const titleEl = document.getElementById('wn-project-title');
+    const subtitleEl = document.getElementById('wn-project-subtitle');
+    const factsEl = document.getElementById('wn-project-facts');
+    const galleryEl = document.getElementById('wn-project-gallery');
+    
+    if (heroBg && titleEl) {
+        // Update page title
+        document.title = `${project.title} | Custodian Building Contracting`;
+        
+        // Update hero
+        heroBg.style.backgroundImage = `url("${project.cover}")`;
+        titleEl.textContent = project.title;
+        subtitleEl.textContent = project.subtitle;
+        
+        // Update facts
+        if (factsEl) {
+            factsEl.innerHTML = project.facts.map(fact => 
+                `<span class="wn-pfacts__pill">${fact}</span>`
+            ).join('');
+        }
+        
+        // Update gallery
+        if (galleryEl) {
+            const gallery = project.gallery.length ? project.gallery : [project.cover];
+            galleryEl.innerHTML = gallery.map(img => `
+                <div class="wn-pimg">
+                    <img src="${img}" alt="${project.title}" loading="lazy" />
+                </div>
+            `).join('');
+            
+            // Lightbox functionality
+            const lightbox = document.getElementById('wn-lightbox');
+            const lightboxImg = document.getElementById('wn-lightbox-img');
+            const closeLightbox = document.querySelector('.wn-lightbox__close');
+            
+            if (lightbox && lightboxImg) {
+                galleryEl.addEventListener('click', (e) => {
+                    const img = e.target.closest('img');
+                    if (img) {
+                        lightboxImg.src = img.src;
+                        lightbox.classList.add('wn-is-open');
+                    }
+                });
+                
+                // Close lightbox
+                const closeLightboxFunc = () => lightbox.classList.remove('wn-is-open');
+                
+                if (closeLightbox) closeLightbox.addEventListener('click', closeLightboxFunc);
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target === lightbox) closeLightboxFunc();
+                });
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') closeLightboxFunc();
+                });
+            }
+        }
+    }
+})();
 
 /* =========================================================
-   BEFORE & AFTER (Curtain Reveal)
+   BEFORE & AFTER SLIDER
 ========================================================= */
-/* =========================================================
-   BEFORE & AFTER (Draggable Curtain Reveal - Hold & Slide Only)
-========================================================= */
-function wnClamp(n, min, max) {
-    return Math.max(min, Math.min(max, n));
-}
-
-function wnInitBeforeAfterCurtain() {
-    const frames = document.querySelectorAll("[data-wn-ba]");
-
-    frames.forEach((frame) => {
-        const curtain = frame.querySelector(".wn-ba__curtain");
-        const handle = frame.querySelector(".wn-ba__handle");
-        if (!curtain || !handle) return;
-
-        let ratio = 0.5;
-        let dragging = false;
-
-        const setRatio = (r) => {
-            ratio = wnClamp(r, 0, 1);
-            const pct = (ratio * 100).toFixed(2) + "%";
-            curtain.style.width = pct;
-            handle.style.left = pct;
-        };
-
-        const ratioFromClientX = (clientX) => {
-            const rect = frame.getBoundingClientRect();
-            const x = clientX - rect.left;
-            return rect.width ? x / rect.width : 0.5;
-        };
-
-        const onPointerDown = (e) => {
-            // Only start dragging if clicking on the handle or very close to it
-            const handleRect = handle.getBoundingClientRect();
-            const clickX = e.clientX;
-            const clickY = e.clientY;
-
-            // Check if click is on handle (with some tolerance)
-            const isOnHandle =
-                clickX >= handleRect.left - 20 &&
-                clickX <= handleRect.right + 20 &&
-                clickY >= handleRect.top - 20 &&
-                clickY <= handleRect.bottom + 20;
-
-            if (!isOnHandle) {
-                // Don't start dragging if not clicking near handle
-                return;
-            }
-
-            e.preventDefault(); // Prevent text selection
-            dragging = true;
-            frame.style.cursor = 'grabbing';
-            handle.style.cursor = 'grabbing';
-
-            if (frame.setPointerCapture) {
-                frame.setPointerCapture(e.pointerId);
-            }
-
-            // Update position based on initial click
-            setRatio(ratioFromClientX(e.clientX));
-        };
-
-        const onPointerMove = (e) => {
-            if (!dragging) return;
-            e.preventDefault();
-            setRatio(ratioFromClientX(e.clientX));
-        };
-
-        const endDrag = () => {
-            if (!dragging) return;
-            dragging = false;
-            frame.style.cursor = '';
-            handle.style.cursor = '';
-
-            if (frame.releasePointerCapture) {
-                frame.releasePointerCapture();
-            }
-        };
-
+(function initBeforeAfter() {
+    const sliders = document.querySelectorAll('[data-wn-ba]');
+    
+    sliders.forEach(slider => {
+        const curtain = slider.querySelector('.wn-ba__curtain');
+        const handle = slider.querySelector('.wn-ba__handle');
+        const knob = handle?.querySelector('.wn-ba__knob');
+        
+        if (!curtain || !handle || !knob) return;
+        
+        let isDragging = false;
+        
         // Set initial position
-        setRatio(ratio);
-
-        // Pointer events for touch and mouse
-        handle.addEventListener("pointerdown", onPointerDown);
-        frame.addEventListener("pointerdown", onPointerDown);
-
-        frame.addEventListener("pointermove", onPointerMove);
-
-        // End drag events
-        document.addEventListener("pointerup", endDrag);
-        document.addEventListener("pointercancel", endDrag);
-
-        // Prevent default touch actions on handle
-        handle.addEventListener("touchstart", (e) => {
-            if (dragging) {
-                e.preventDefault();
-            }
-        }, { passive: false });
-
-        // Disable click-to-slide on the frame
-        frame.addEventListener("click", (e) => {
-            if (!dragging) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-        });
-
-        // Make sure handle has proper cursor
-        handle.style.cursor = 'grab';
-
-        // Add hover effect for handle
-        handle.addEventListener("mouseenter", () => {
-            if (!dragging) {
-                handle.style.cursor = 'grab';
-            }
-        });
-
-        handle.addEventListener("mouseleave", () => {
-            if (!dragging) {
-                handle.style.cursor = '';
-            }
+        curtain.style.width = '50%';
+        handle.style.left = '50%';
+        
+        // Start drag
+        function startDrag(e) {
+            isDragging = true;
+            document.addEventListener('mousemove', onDrag);
+            document.addEventListener('touchmove', onDrag);
+            document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('touchend', stopDrag);
+            e.preventDefault();
+        }
+        
+        // During drag
+        function onDrag(e) {
+            if (!isDragging) return;
+            
+            const rect = slider.getBoundingClientRect();
+            let x = e.clientX || (e.touches?.[0].clientX);
+            
+            if (x < rect.left) x = rect.left;
+            if (x > rect.right) x = rect.right;
+            
+            const percent = ((x - rect.left) / rect.width) * 100;
+            curtain.style.width = percent + '%';
+            handle.style.left = percent + '%';
+        }
+        
+        // Stop drag
+        function stopDrag() {
+            isDragging = false;
+            document.removeEventListener('mousemove', onDrag);
+            document.removeEventListener('touchmove', onDrag);
+            document.removeEventListener('mouseup', stopDrag);
+            document.removeEventListener('touchend', stopDrag);
+        }
+        
+        // Event listeners
+        knob.addEventListener('mousedown', startDrag);
+        knob.addEventListener('touchstart', startDrag);
+        handle.addEventListener('mousedown', startDrag);
+        handle.addEventListener('touchstart', startDrag);
+        
+        // Prevent image drag
+        slider.querySelectorAll('img').forEach(img => {
+            img.addEventListener('dragstart', e => e.preventDefault());
         });
     });
-}
+})();
 
-wnInitBeforeAfterCurtain();
+/* =========================================================
+   CREDENTIALS MODAL
+========================================================= */
+(function initCredentialsModal() {
+    const modal = document.getElementById('wn-cred-modal');
+    const modalImg = document.getElementById('wn-cred-modal-img');
+    const modalTitle = document.getElementById('wn-cred-modal-title');
+    const openButtons = document.querySelectorAll('[data-wn-doc]');
+    const closeButtons = document.querySelectorAll('[data-wn-close="true"]');
+    
+    if (!modal) return;
+    
+    function openModal(src, title) {
+        modalImg.src = src;
+        modalTitle.textContent = title;
+        modal.classList.add('wn-is-open');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal() {
+        modal.classList.remove('wn-is-open');
+        document.body.style.overflow = '';
+    }
+    
+    // Open buttons
+    openButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const src = btn.getAttribute('data-wn-doc');
+            const title = btn.getAttribute('data-wn-title') || 'Document';
+            openModal(src, title);
+        });
+    });
+    
+    // Close buttons
+    closeButtons.forEach(btn => {
+        btn.addEventListener('click', closeModal);
+    });
+    
+    // Close on backdrop click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal || e.target.classList.contains('wn-cred-modal__backdrop')) {
+            closeModal();
+        }
+    });
+    
+    // Close on escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('wn-is-open')) {
+            closeModal();
+        }
+    });
+})();
+
+/* =========================================================
+   CONTACT FORM
+========================================================= */
+(function initContactForm() {
+    const form = document.getElementById('wn-contact-form');
+    if (!form) return;
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Basic validation
+        const name = document.getElementById('wn-name').value.trim();
+        const email = document.getElementById('wn-email').value.trim();
+        const message = document.getElementById('wn-message').value.trim();
+        
+        if (!name || !email || !message) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+        
+        // Simple email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
+        
+        // Success message (in real app, send to server)
+        alert('Thank you for your inquiry! We will contact you within 24 hours.');
+        form.reset();
+    });
+})();
+
+/* =========================================================
+   INITIALIZE EVERYTHING ON LOAD
+========================================================= */
+document.addEventListener('DOMContentLoaded', function() {
+    // All functions are self-initializing
+    // No additional initialization needed
+});
