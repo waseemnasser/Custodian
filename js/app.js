@@ -61,6 +61,9 @@
 /* =========================================================
    MOBILE MENU TOGGLE (Keep Simple)
    ========================================================= */
+/* =========================================================
+   MOBILE MENU TOGGLE (Keep Simple)
+========================================================= */
 (function initMobileMenu() {
     const hamburger = document.querySelector('.wn-hamburger');
     const mobileMenu = document.getElementById('wn-mobile-menu');
@@ -93,18 +96,31 @@
         closeBtn.addEventListener('click', () => toggleMenu(false));
     }
 
-    // Mobile links - close menu then scroll
+    // Mobile links - FIXED VERSION
     mobileLinks.forEach(link => {
         link.addEventListener('click', (e) => {
-            e.preventDefault();
             const href = link.getAttribute('href');
 
-            // Close menu first
-            toggleMenu(false);
+            // Check if link is to another page (index.html)
+            if (href && href.includes('index.html')) {
+                // Let the browser handle navigation to index.html
+                // Close menu first
+                toggleMenu(false);
 
-            // Then scroll to section
-            setTimeout(() => {
-                if (href && href.startsWith('#')) {
+                // Browser will handle the page navigation and hash
+                // No need for smooth scroll here
+                return;
+            }
+
+            // If it's an internal hash link (starts with # on same page)
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+
+                // Close menu first
+                toggleMenu(false);
+
+                // Then scroll to section
+                setTimeout(() => {
                     const target = document.querySelector(href);
                     if (target) {
                         const navbar = document.querySelector('.wn-site-header');
@@ -118,8 +134,8 @@
 
                         history.pushState(null, null, href);
                     }
-                }
-            }, 300);
+                }, 300);
+            }
         });
     });
 
