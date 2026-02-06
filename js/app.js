@@ -3,9 +3,9 @@
 /* =========================================================
    BASIC FADE-IN ANIMATIONS ONLY
    ========================================================= */
-   (function initSimpleAnimations() {
+(function initSimpleAnimations() {
     // Wait for DOM to be ready
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         // Just fade in hero content
         const heroElements = document.querySelectorAll('.wn-hero__content > *');
         heroElements.forEach((el, i) => {
@@ -26,32 +26,32 @@
 (function initSmoothScroll() {
     // Apply to ALL anchor links that start with #
     document.querySelectorAll('a[href^="#"]').forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             e.preventDefault();
-            
+
             const href = this.getAttribute('href');
-            
+
             // If it's just "#" or "#wn-top", go to top
             if (href === '#' || href === '#wn-top') {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 return;
             }
-            
+
             // Find the target element
             const target = document.querySelector(href);
             if (!target) return;
-            
+
             // Calculate position considering fixed navbar
             const navbar = document.querySelector('.wn-site-header');
             const navbarHeight = navbar ? navbar.offsetHeight : 0;
             const targetPosition = target.offsetTop - navbarHeight - 20;
-            
+
             // Smooth scroll to position
             window.scrollTo({
                 top: targetPosition,
                 behavior: 'smooth'
             });
-            
+
             // Update URL without page jump
             history.pushState(null, null, href);
         });
@@ -66,9 +66,9 @@
     const mobileMenu = document.getElementById('wn-mobile-menu');
     const closeBtn = document.querySelector('.wn-mobile-menu__close');
     const mobileLinks = document.querySelectorAll('.wn-mobile-menu__link');
-    
+
     if (!hamburger || !mobileMenu) return;
-    
+
     // Toggle menu
     function toggleMenu(isOpen) {
         if (isOpen) {
@@ -81,27 +81,27 @@
             document.body.style.overflow = '';
         }
     }
-    
+
     // Hamburger click
     hamburger.addEventListener('click', () => {
         const isOpen = mobileMenu.classList.contains('wn-is-open');
         toggleMenu(!isOpen);
     });
-    
+
     // Close button
     if (closeBtn) {
         closeBtn.addEventListener('click', () => toggleMenu(false));
     }
-    
+
     // Mobile links - close menu then scroll
     mobileLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const href = link.getAttribute('href');
-            
+
             // Close menu first
             toggleMenu(false);
-            
+
             // Then scroll to section
             setTimeout(() => {
                 if (href && href.startsWith('#')) {
@@ -110,19 +110,19 @@
                         const navbar = document.querySelector('.wn-site-header');
                         const navbarHeight = navbar ? navbar.offsetHeight : 0;
                         const targetPosition = target.offsetTop - navbarHeight - 20;
-                        
+
                         window.scrollTo({
                             top: targetPosition,
                             behavior: 'smooth'
                         });
-                        
+
                         history.pushState(null, null, href);
                     }
                 }
             }, 300);
         });
     });
-    
+
     // Close menu on escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && mobileMenu.classList.contains('wn-is-open')) {
@@ -162,11 +162,11 @@
         index = (index + 1) % images.length;
         const nextLayer = showingA ? wnBgB : wnBgA;
         const currentLayer = showingA ? wnBgA : wnBgB;
-        
+
         nextLayer.style.backgroundImage = `url("${images[index]}")`;
         nextLayer.classList.add("wn-is-active");
         currentLayer.classList.remove("wn-is-active");
-        
+
         showingA = !showingA;
     }, 5000);
 })();
@@ -285,17 +285,17 @@ const PROJECTS = [
 (function initPortfolio() {
     const portfolioGrid = document.getElementById('wn-portfolio-grid');
     const filterChips = document.querySelectorAll('.wn-portfolio__chip');
-    
+
     if (!portfolioGrid) return;
-    
+
     function renderPortfolio(filter = 'all') {
         const filtered = PROJECTS.filter(p => filter === 'all' || p.category === filter);
-        
+
         if (filtered.length === 0) {
             portfolioGrid.innerHTML = '<p style="text-align:center;color:rgba(13,27,27,0.72)">No projects found.</p>';
             return;
         }
-        
+
         portfolioGrid.innerHTML = filtered.map(p => `
             <article class="wn-pcard">
                 <div class="wn-pcard__media">
@@ -314,17 +314,17 @@ const PROJECTS = [
             </article>
         `).join('');
     }
-    
+
     // Initial render
     renderPortfolio('all');
-    
+
     // Filter chips
     filterChips.forEach(chip => {
         chip.addEventListener('click', () => {
             // Update active state
             filterChips.forEach(c => c.classList.remove('wn-is-active'));
             chip.classList.add('wn-is-active');
-            
+
             // Filter and render
             const filter = chip.getAttribute('data-filter') || 'all';
             renderPortfolio(filter);
@@ -341,33 +341,33 @@ const PROJECTS = [
         const params = new URLSearchParams(window.location.search);
         return params.get('id');
     }
-    
+
     const projectId = getProjectId();
     const project = PROJECTS.find(p => p.id === projectId) || PROJECTS[0];
-    
+
     // Update page content if on project.html
     const heroBg = document.getElementById('wn-project-hero-bg');
     const titleEl = document.getElementById('wn-project-title');
     const subtitleEl = document.getElementById('wn-project-subtitle');
     const factsEl = document.getElementById('wn-project-facts');
     const galleryEl = document.getElementById('wn-project-gallery');
-    
+
     if (heroBg && titleEl) {
         // Update page title
         document.title = `${project.title} | Custodian Building Contracting`;
-        
+
         // Update hero
         heroBg.style.backgroundImage = `url("${project.cover}")`;
         titleEl.textContent = project.title;
         subtitleEl.textContent = project.subtitle;
-        
+
         // Update facts
         if (factsEl) {
-            factsEl.innerHTML = project.facts.map(fact => 
+            factsEl.innerHTML = project.facts.map(fact =>
                 `<span class="wn-pfacts__pill">${fact}</span>`
             ).join('');
         }
-        
+
         // Update gallery
         if (galleryEl) {
             const gallery = project.gallery.length ? project.gallery : [project.cover];
@@ -376,12 +376,12 @@ const PROJECTS = [
                     <img src="${img}" alt="${project.title}" loading="lazy" />
                 </div>
             `).join('');
-            
+
             // Lightbox functionality
             const lightbox = document.getElementById('wn-lightbox');
             const lightboxImg = document.getElementById('wn-lightbox-img');
             const closeLightbox = document.querySelector('.wn-lightbox__close');
-            
+
             if (lightbox && lightboxImg) {
                 galleryEl.addEventListener('click', (e) => {
                     const img = e.target.closest('img');
@@ -390,10 +390,10 @@ const PROJECTS = [
                         lightbox.classList.add('wn-is-open');
                     }
                 });
-                
+
                 // Close lightbox
                 const closeLightboxFunc = () => lightbox.classList.remove('wn-is-open');
-                
+
                 if (closeLightbox) closeLightbox.addEventListener('click', closeLightboxFunc);
                 lightbox.addEventListener('click', (e) => {
                     if (e.target === lightbox) closeLightboxFunc();
@@ -407,24 +407,133 @@ const PROJECTS = [
 })();
 
 /* =========================================================
+   PROJECT VIDEO FUNCTIONALITY
+========================================================= */
+/* =========================================================
+   PROJECT VIDEO FUNCTIONALITY - FIXED VERSION
+========================================================= */
+(function initProjectVideo() {
+    // Get project ID from URL
+    function getProjectId() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('id');
+    }
+
+    // Video data for projects - ONLY projects with videos go here
+    const PROJECT_VIDEOS = {
+        'green-community-west-villa': {
+            title: "Project in Motion",
+            subtitle: "A complete luxury villa renovation journey",
+            videos: [
+                {
+                    src: './assets/imgs/projects/Villa_2003_Green_Community_West/green_community.mp4',
+                    poster: './assets/imgs/projects/Villa_2003_Green_Community_West/green-cover.webp',
+                    caption: 'Timelapse of the complete villa renovation',
+                    label: 'Complete Renovation'
+                }
+            ]
+        }
+        // ONLY projects that have videos go here!
+        // Projects like 'sienna-views-villa', 'green-community-west-villa', 'reef-winter-garden', 
+        // 'outdoor-living-landscape' are NOT listed here, so they won't show video section
+    };
+
+    function loadProjectVideo() {
+        const videoSection = document.getElementById('wn-project-video-section');
+        if (!videoSection) return;
+
+        const projectId = getProjectId();
+        const videoData = PROJECT_VIDEOS[projectId];
+
+        // CRITICAL FIX: Only show section if video data exists AND has videos
+        if (!videoData || !videoData.videos || videoData.videos.length === 0) {
+            // Hide the section completely
+            videoSection.style.display = 'none';
+            videoSection.remove(); // Optional: remove from DOM entirely
+            return; // Exit early - don't show anything
+        }
+
+        // Only show if we have videos
+        videoSection.style.display = 'block';
+
+        // Build the video section HTML
+        let videoHTML = `
+            <div class="wn-pvideo__head">
+                <h2 class="wn-pvideo__title">${videoData.title}</h2>
+                ${videoData.subtitle ? `<p class="wn-pvideo__subtitle">${videoData.subtitle}</p>` : ''}
+            </div>
+        `;
+
+        // Check if multiple videos
+        if (videoData.videos.length === 1) {
+            // Single video layout
+            const video = videoData.videos[0];
+            videoHTML += `
+                <div class="wn-pvideo__container">
+                    <video class="wn-pvideo__player" controls muted poster="${video.poster || ''}">
+                        <source src="${video.src}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    ${video.caption ? `
+                    <div class="wn-pvideo__caption">
+                        <p>${video.caption}</p>
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+        } else {
+            // Multiple videos grid layout
+            videoHTML += `<div class="wn-pvideo__grid">`;
+
+            videoData.videos.forEach((video, index) => {
+                videoHTML += `
+                    <div class="wn-pvideo__item">
+                        <video class="wn-pvideo__player--small" controls muted poster="${video.poster || ''}">
+                            <source src="${video.src}" type="video/mp4">
+                        </video>
+                        ${video.label ? `<p class="wn-pvideo__label">${video.label}</p>` : ''}
+                        ${video.caption ? `<p class="wn-pvideo__caption">${video.caption}</p>` : ''}
+                    </div>
+                `;
+            });
+
+            videoHTML += `</div>`;
+        }
+
+        // Inject the HTML
+        videoSection.innerHTML = videoHTML;
+
+        // Add lazy loading to videos
+        const videos = videoSection.querySelectorAll('video');
+        videos.forEach(video => {
+            video.setAttribute('preload', 'metadata');
+            video.setAttribute('loading', 'lazy');
+        });
+    }
+
+    // Initialize on DOM ready
+    document.addEventListener('DOMContentLoaded', loadProjectVideo);
+})();
+
+/* =========================================================
    BEFORE & AFTER SLIDER
 ========================================================= */
 (function initBeforeAfter() {
     const sliders = document.querySelectorAll('[data-wn-ba]');
-    
+
     sliders.forEach(slider => {
         const curtain = slider.querySelector('.wn-ba__curtain');
         const handle = slider.querySelector('.wn-ba__handle');
         const knob = handle?.querySelector('.wn-ba__knob');
-        
+
         if (!curtain || !handle || !knob) return;
-        
+
         let isDragging = false;
-        
+
         // Set initial position
         curtain.style.width = '50%';
         handle.style.left = '50%';
-        
+
         // Start drag
         function startDrag(e) {
             isDragging = true;
@@ -434,22 +543,22 @@ const PROJECTS = [
             document.addEventListener('touchend', stopDrag);
             e.preventDefault();
         }
-        
+
         // During drag
         function onDrag(e) {
             if (!isDragging) return;
-            
+
             const rect = slider.getBoundingClientRect();
             let x = e.clientX || (e.touches?.[0].clientX);
-            
+
             if (x < rect.left) x = rect.left;
             if (x > rect.right) x = rect.right;
-            
+
             const percent = ((x - rect.left) / rect.width) * 100;
             curtain.style.width = percent + '%';
             handle.style.left = percent + '%';
         }
-        
+
         // Stop drag
         function stopDrag() {
             isDragging = false;
@@ -458,13 +567,13 @@ const PROJECTS = [
             document.removeEventListener('mouseup', stopDrag);
             document.removeEventListener('touchend', stopDrag);
         }
-        
+
         // Event listeners
         knob.addEventListener('mousedown', startDrag);
         knob.addEventListener('touchstart', startDrag);
         handle.addEventListener('mousedown', startDrag);
         handle.addEventListener('touchstart', startDrag);
-        
+
         // Prevent image drag
         slider.querySelectorAll('img').forEach(img => {
             img.addEventListener('dragstart', e => e.preventDefault());
@@ -481,21 +590,21 @@ const PROJECTS = [
     const modalTitle = document.getElementById('wn-cred-modal-title');
     const openButtons = document.querySelectorAll('[data-wn-doc]');
     const closeButtons = document.querySelectorAll('[data-wn-close="true"]');
-    
+
     if (!modal) return;
-    
+
     function openModal(src, title) {
         modalImg.src = src;
         modalTitle.textContent = title;
         modal.classList.add('wn-is-open');
         document.body.style.overflow = 'hidden';
     }
-    
+
     function closeModal() {
         modal.classList.remove('wn-is-open');
         document.body.style.overflow = '';
     }
-    
+
     // Open buttons
     openButtons.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -504,19 +613,19 @@ const PROJECTS = [
             openModal(src, title);
         });
     });
-    
+
     // Close buttons
     closeButtons.forEach(btn => {
         btn.addEventListener('click', closeModal);
     });
-    
+
     // Close on backdrop click
     modal.addEventListener('click', (e) => {
         if (e.target === modal || e.target.classList.contains('wn-cred-modal__backdrop')) {
             closeModal();
         }
     });
-    
+
     // Close on escape
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.classList.contains('wn-is-open')) {
@@ -531,27 +640,27 @@ const PROJECTS = [
 (function initContactForm() {
     const form = document.getElementById('wn-contact-form');
     if (!form) return;
-    
-    form.addEventListener('submit', function(e) {
+
+    form.addEventListener('submit', function (e) {
         e.preventDefault();
-        
+
         // Basic validation
         const name = document.getElementById('wn-name').value.trim();
         const email = document.getElementById('wn-email').value.trim();
         const message = document.getElementById('wn-message').value.trim();
-        
+
         if (!name || !email || !message) {
             alert('Please fill in all required fields.');
             return;
         }
-        
+
         // Simple email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             alert('Please enter a valid email address.');
             return;
         }
-        
+
         // Success message (in real app, send to server)
         alert('Thank you for your inquiry! We will contact you within 24 hours.');
         form.reset();
@@ -561,7 +670,7 @@ const PROJECTS = [
 /* =========================================================
    INITIALIZE EVERYTHING ON LOAD
 ========================================================= */
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // All functions are self-initializing
     // No additional initialization needed
 });

@@ -83,29 +83,10 @@
 
         <div class="wn-pgallery__grid" id="wn-project-gallery" aria-live="polite"></div>
     </section>
-    <section class="wn-pvideo wn-white-spacing" aria-label="Project Video Showcase">
-        <div class="wn-pvideo__head">
-            <h2 class="wn-pvideo__title">Project in Motion</h2>
-            <p class="wn-pvideo__subtitle">Watch the transformation unfold</p>
-        </div>
-
-        <div class="wn-pvideo__container">
-            <video class="wn-pvideo__player" controls muted poster="./assets/videos/project-preview.jpg">
-                <source src="./assets/imgs/projects/Villa_2003_Green_Community_West/green_community.mp4"
-                    type="video/mp4">
-                <!-- <track src="./assets/videos/captions.vtt" kind="subtitles" srclang="en" label="English" default> -->
-                Your browser does not support the video tag.
-            </video>
-
-            <div class="wn-pvideo__caption">
-                <p>A timelapse of the complete transformation from concept to completion.</p>
-            </div>
-        </div>
-        <div class="wn-lightbox" id="wn-lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
-            <button class="wn-lightbox__close" type="button" aria-label="Close viewer">✕</button>
-            <img class="wn-lightbox__img" id="wn-lightbox-img" alt="Project image preview" />
-        </div>
-        <!-- Add this after the Gallery section -->
+    <!-- Add this after the gallery section -->
+    <section class="wn-pvideo wn-white-spacing" id="wn-project-video-section" aria-label="Project Video Showcase"
+        style="display: none;">
+        <!-- Videos will be injected here by JavaScript -->
     </section>
     <section class="wn-pcta wn-white-spacing" aria-label="Project CTA">
         <div class="wn-pcta__card">
