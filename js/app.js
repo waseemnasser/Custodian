@@ -454,7 +454,7 @@ const PROJECTS = [
         }
 
         // Only show if we have videos
-        videoSection.style.display = 'block';
+        videoSection.style.display = 'flex';
 
         // Build the video section HTML
         let videoHTML = `
