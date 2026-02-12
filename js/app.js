@@ -157,14 +157,15 @@
     if (!wnBgA || !wnBgB) return;
 
     const images = [
-        "./assets/imgs/gallery1.webp",
-        "./assets/imgs/gallery2.webp",
+        "./assets/imgs/gallery1.png",
+        "./assets/imgs/gallery2.png",
         "./assets/imgs/gallery3.webp",
         "./assets/imgs/gallery4.webp",
         "./assets/imgs/gallery5.webp",
         "./assets/imgs/gallery6.webp",
         "./assets/imgs/gallery7.webp",
-        "./assets/imgs/gallery8.webp"
+        "./assets/imgs/gallery8.webp",
+        "./assets/imgs/gallery9.webp"
     ];
 
     let index = 0;
